@@ -1,10 +1,13 @@
 class ArticlesController < ApplicationController
+include ArticlesHelper
+
     def index
         @articles = Article.all
     end
 
     def show
         @articles = Article.find(params[:id])
+        
     end
 
     def new
@@ -12,8 +15,22 @@ class ArticlesController < ApplicationController
     end
 
     def create
-        @article = Article.new
-        @article.title = params[:article][:title]
+        # the first way of creating article instance
+        # @article = Article.new
+        # @article.title = params[:article][:title]
+        # @article.body = params[:article][:body]
+        # @article.save
+        # redirect_to article_path(@article)
+
+        # the second  way of creating article instance
+        #  @article = Article.new(
+        #     title: params[:article][:title],
+        #     body: params[:article][:body])
+        #   @article.save
+        #   redirect_to article_path(@article)
+
+        # the third  way of creating article instance
+        @article = Article.new(article_params)
         @article.save
         redirect_to article_path(@article)
     end
