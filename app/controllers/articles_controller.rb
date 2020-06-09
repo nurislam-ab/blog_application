@@ -15,29 +15,35 @@ include ArticlesHelper
     end
 
     def create
-        the first way of creating article instance
-        @article = Article.new
-        @article.title = params[:article][:title]
-        @article.body = params[:article][:body]
-        @article.save
-        redirect_to article_path(@article)
+        #the first way of creating article instance
+        #@article = Article.new
+        #@article.title = params[:article][:title]
+        #@article.body = params[:article][:body]
+        #@article.save
+        #redirect_to article_path(@article)
 
-        the second  way of creating article instance
-         @article = Article.new(
-            title: params[:article][:title],
-            body: params[:article][:body])
-          @article.save
-          redirect_to article_path(@article)
+        #the second  way of creating article instance
+         #@article = Article.new(
+            #title: params[:article][:title],
+            #body: params[:article][:body])
+          #@article.save
+          #redirect_to article_path(@article)
 
         the third  way of creating article instance
         @article = Article.new(article_params)
         @article.save
+
+        flash.notice = "Article '#{@article.title}' Created!"
+
         redirect_to article_path(@article)
     end
 
     def destroy
         @article = Article.find(params[:id])
         @article.destroy
+
+        flash.notice = "Article '#{@article.title}' Deleted!"
+
         redirect_to articles_path
     end
 
@@ -48,6 +54,8 @@ include ArticlesHelper
     def update
         @article = Article.find(params[:id])
         @article.update(article_params)
+
+        flash.notice = "Article '#{@article.title}' Updated!"
       
         redirect_to article_path(@article)
     end
